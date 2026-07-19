@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KNK Realtors India — Curated Residences Across NCR</title>
+<meta name="description" content="KNK Realtors India — a boutique brokerage partnered with Trehan IRIS, Civitech and Saraswati across the National Capital Region.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400..600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='50' fill='%23F3EEE3'/%3E%3Ccircle cx='50' cy='50' r='46' fill='none' stroke='%23A05A2C' stroke-width='4'/%3E%3Ctext x='50' y='66' font-family='Georgia,serif' font-size='52' fill='%23221C13' text-anchor='middle'%3EK%3C/text%3E%3C/svg%3E">
+<style>
+  /* ============ TOKENS ============ */
+  :root{
+    --paper:#F3EEE3;
+    --paper-deep:#EAE1CE;
+    --card:#FBF8F1;
+    --ink:#221C13;
+    --ink-soft:#5B5340;
+    --ink-faint:#8C8368;
+    --line:#DCD2B8;
+    --brass:#A05A2C;
+    --brass-deep:#7C4520;
+    --olive:#586B4A;
+    --olive-deep:#3F4E35;
+    --dusk:#1C1710;
+    --dusk-card:#262016;
+    --cream:#F3EEE3;
+    --radius-s:4px;
+    --radius-m:10px;
+    --shadow-card: 0 1px 2px rgba(34,28,19,.06), 0 12px 28px -16px rgba(34,28,19,.28);
+    --max:1240px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth; scroll-padding-top:96px;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important;}
+  }
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%; display:block;}
+  a{color:inherit; text-decoration:none;}
+  button{font-family:inherit; cursor:pointer;}
+  input,select,textarea{font-family:inherit; font-size:15px;}
+
+  .container{max-width:var(--max); margin:0 auto; padding:0 40px;}
+  @media (max-width:820px){ .container{padding:0 22px;} }
+
+  .eyebrow{
+    display:flex; align-items:center; gap:10px;
+    font-size:12px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--brass); font-weight:600; margin-bottom:18px;
+  }
+  .eyebrow::before{content:""; width:16px; height:1px; background:var(--brass);}
+
+  h1,h2,h3{font-family:'Fraunces',serif; font-weight:500; letter-spacing:-.01em; margin:0;}
+  em, .accent-italic{font-style:italic; color:var(--brass); font-weight:500;}
+
+  .section{padding:110px 0;}
+  @media (max-width:820px){ .section{padding:70px 0;} }
+  .section-head{
+    display:flex; justify-content:space-between; align-items:flex-end; gap:60px;
+    margin-bottom:56px;
+  }
+  .section-head h2{font-size:clamp(30px,3.6vw,46px); line-height:1.08;}
+  .section-head .lede{max-width:320px; color:var(--ink-soft); font-size:15px; padding-bottom:6px;}
+  @media (max-width:900px){
+    .section-head{flex-direction:column; align-items:flex-start; gap:20px;}
+    .section-head .lede{max-width:100%;}
+  }
+
+  .divider{height:1px; background:var(--line); border:0; margin:0;}
+
+  /* Buttons */
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:14px 24px; border-radius:100px; font-size:13px; font-weight:600;
+    letter-spacing:.04em; text-transform:uppercase; border:1px solid transparent;
+    transition:transform .18s ease, background .18s ease, color .18s ease, border-color .18s ease;
+    white-space:nowrap;
+  }
+  .btn:active{transform:scale(.97);}
+  .btn-dark{background:var(--ink); color:var(--paper);}
+  .btn-dark:hover{background:var(--brass-deep);}
+  .btn-outline{border-color:var(--ink-faint); color:var(--ink);}
+  .btn-outline:hover{border-color:var(--ink); background:rgba(34,28,19,.04);}
+  .btn-cream{background:var(--brass); color:var(--cream);}
+  .btn-cream:hover{background:#8C4E27;}
+  .btn:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-visible{
+    outline:2px solid var(--brass); outline-offset:3px;
+  }
+
+  /* Monogram */
+  .mono{
+    width:40px; height:40px; border-radius:50%; border:1px solid var(--ink-faint);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces',serif; font-size:17px; flex-shrink:0;
+  }
+
+  /* ============ NAV ============ */
+  header.nav{
+    position:sticky; top:0; z-index:60;
+    background:rgba(243,238,227,.92); backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{display:flex; align-items:center; justify-content:space-between; padding:16px 40px;}
+  @media (max-width:820px){ .nav-inner{padding:14px 22px;} }
+  .brand{display:flex; align-items:center; gap:12px;}
+  .brand .mono{background:var(--card);}
+  .brand-text .name{font-family:'Fraunces',serif; font-size:18px; line-height:1.1;}
+  .brand-text .tag{font-size:10px; letter-spacing:.14em; color:var(--ink-faint); text-transform:uppercase;}
+  nav.links{display:flex; gap:34px; font-size:13px; letter-spacing:.03em; text-transform:uppercase; font-weight:600; color:var(--ink-soft);}
+  nav.links a{padding:4px 0; border-bottom:1px solid transparent; transition:border-color .15s, color .15s;}
+  nav.links a:hover{color:var(--ink); border-color:var(--brass);}
+  .nav-cta{display:flex; align-items:center; gap:16px;}
+  .burger{display:none; flex-direction:column; gap:5px; background:none; border:0; padding:6px;}
+  .burger span{width:22px; height:2px; background:var(--ink);}
+  @media (max-width:960px){
+    nav.links{display:none;}
+    .burger{display:flex;}
+  }
+  #mobileMenu{
+    display:none; flex-direction:column; gap:2px; padding:8px 22px 20px;
+    border-top:1px solid var(--line);
+  }
+  #mobileMenu.open{display:flex;}
+  #mobileMenu a{padding:12px 0; font-size:14px; text-transform:uppercase; letter-spacing:.04em; font-weight:600; border-bottom:1px solid var(--line);}
+
+  /* ============ HERO ============ */
+  .hero{padding:64px 0 0; overflow:hidden;}
+  .hero-grid{display:grid; grid-template-columns:1.05fr .95fr; gap:64px; align-items:center;}
+  @media (max-width:960px){ .hero-grid{grid-template-columns:1fr;} }
+  .hero-copy h1{font-size:clamp(38px,5.4vw,64px); line-height:1.02;}
+  .hero-copy .sub{margin:26px 0 34px; color:var(--ink-soft); font-size:16.5px; max-width:440px;}
+  .hero-actions{display:flex; gap:14px; flex-wrap:wrap;}
+  .hero-visual{position:relative;}
+  .hero-visual .stack{position:relative; aspect-ratio:4/5; border-radius:var(--radius-m); overflow:hidden; box-shadow:var(--shadow-card);}
+  .hero-visual .stack img{width:100%; height:100%; object-fit:cover;}
+  .float-card{
+    position:absolute; left:-34px; bottom:-30px; background:var(--card);
+    border:1px solid var(--line); border-radius:var(--radius-m); padding:18px 22px;
+    box-shadow:var(--shadow-card); max-width:230px;
+  }
+  @media (max-width:960px){ .float-card{left:16px; bottom:-24px;} }
+  .float-card .k{font-family:'Fraunces',serif; font-size:26px; color:var(--brass);}
+  .float-card .v{font-size:12.5px; color:var(--ink-soft); margin-top:2px;}
+
+  .stat-strip{
+    margin-top:88px; border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    padding:26px 0;
+  }
+  .stat-strip .container{display:flex; flex-wrap:wrap; gap:40px; justify-content:space-between;}
+  .stat-strip .stat{display:flex; align-items:baseline; gap:10px;}
+  .stat-strip .stat .num{font-family:'Fraunces',serif; font-style:italic; font-size:26px; color:var(--brass);}
+  .stat-strip .stat .lbl{font-size:11.5px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint);}
+
+  /* ============ MANIFESTO ============ */
+  .pillars{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:var(--radius-m); overflow:hidden;}
+  @media (max-width:820px){ .pillars{grid-template-columns:1fr;} }
+  .pillar{background:var(--card); padding:38px 34px;}
+  .pillar svg{width:30px; height:30px; margin-bottom:20px; color:var(--brass);}
+  .pillar h3{font-size:20px; margin-bottom:12px;}
+  .pillar p{color:var(--ink-soft); font-size:14.5px; margin:0;}
+
+  /* ============ PARTNERS ============ */
+  .partners-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  @media (max-width:900px){ .partners-grid{grid-template-columns:1fr;} }
+  .partner-card{
+    background:var(--card); border:1px solid var(--line); border-radius:var(--radius-m);
+    padding:32px 28px; display:flex; flex-direction:column; gap:18px;
+    transition:border-color .2s, transform .2s;
+  }
+  .partner-card:hover{border-color:var(--brass); transform:translateY(-3px);}
+  .partner-top{display:flex; align-items:center; gap:14px;}
+  .partner-top .mono{background:var(--paper-deep); border-color:var(--brass); color:var(--brass-deep); font-size:16px;}
+  .partner-top .pname{font-size:22px;}
+  .partner-top .ptag{font-size:12.5px; color:var(--ink-faint); margin-top:2px;}
+  .partner-since{font-size:12px; text-transform:uppercase; letter-spacing:.08em; color:var(--olive-deep); font-weight:600;}
+  .partner-projects{display:flex; flex-direction:column; gap:8px; border-top:1px solid var(--line); padding-top:16px;}
+  .partner-projects .proj-row{display:flex; align-items:center; justify-content:space-between; font-size:13.5px;}
+  .partner-projects .proj-row .pn{font-family:'Fraunces',serif; font-style:italic; color:var(--ink);}
+  .partner-projects .proj-row .pl{color:var(--ink-faint); font-size:12px;}
+  .partner-link{margin-top:auto; font-size:12.5px; font-weight:600; text-transform:uppercase; letter-spacing:.06em; color:var(--brass); display:inline-flex; align-items:center; gap:6px;}
+  .partner-link svg{width:13px; height:13px; transition:transform .15s;}
+  .partner-card:hover .partner-link svg{transform:translate(2px,-2px);}
+
+  /* ============ PORTFOLIO ============ */
+  .filter-bar{
+    display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; gap:0;
+    background:var(--card); border:1px solid var(--line); border-radius:var(--radius-m);
+    margin-bottom:44px; overflow:hidden;
+  }
+  @media (max-width:820px){ .filter-bar{grid-template-columns:1fr 1fr;} }
+  .filter-field{padding:16px 22px; border-right:1px solid var(--line);}
+  .filter-field:last-child{border-right:0;}
+  @media (max-width:820px){
+    .filter-field{border-bottom:1px solid var(--line);}
+    .filter-field:nth-child(2n){border-right:0;}
+  }
+  .filter-field label{display:block; font-size:10.5px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); margin-bottom:6px;}
+  .filter-field input, .filter-field select{
+    width:100%; border:0; background:transparent; padding:0; color:var(--ink); font-size:14.5px;
+  }
+  .filter-field input:focus, .filter-field select:focus{outline:0;}
+  .filter-field input::placeholder{color:var(--ink-faint);}
+
+  .portfolio-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:26px;}
+  @media (max-width:980px){ .portfolio-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:640px){ .portfolio-grid{grid-template-columns:1fr;} }
+
+  .prop-card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius-m); overflow:hidden; box-shadow:var(--shadow-card); display:flex; flex-direction:column;}
+  .prop-media{position:relative; aspect-ratio:4/3; overflow:hidden; background:var(--paper-deep);}
+  .prop-media img{width:100%; height:100%; object-fit:cover; transition:transform .5s ease;}
+  .prop-card:hover .prop-media img{transform:scale(1.05);}
+  .price-tag{
+    position:absolute; right:12px; bottom:12px; background:var(--dusk); color:var(--cream);
+    padding:6px 12px; border-radius:100px; font-size:12.5px; font-weight:600;
+  }
+  .stamp-wrap{position:absolute; top:10px; left:10px;}
+  .prop-body{padding:20px 22px 24px; display:flex; flex-direction:column; gap:10px; flex:1;}
+  .prop-title{font-size:19px;}
+  .prop-loc{font-size:12.5px; color:var(--ink-faint); margin-top:-4px;}
+  .prop-meta{display:flex; gap:14px; font-size:12.5px; color:var(--ink-soft); border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:10px 0;}
+  .prop-foot{display:flex; align-items:center; justify-content:space-between; margin-top:auto;}
+  .dev-chip{display:flex; align-items:center; gap:7px; font-size:12px; color:var(--ink-soft);}
+  .dev-chip .dot{width:6px; height:6px; border-radius:50%; background:var(--olive);}
+  .enquire-link{font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:.05em; color:var(--brass);}
+
+  .no-results{grid-column:1/-1; text-align:center; padding:60px 20px; color:var(--ink-faint); font-size:14.5px;}
+
+  /* ============ VOICES ============ */
+  .voices-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+  @media (max-width:900px){ .voices-grid{grid-template-columns:1fr;} }
+  .voice-card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius-m); padding:30px 28px;}
+  .voice-card .quote-mark{font-family:'Fraunces',serif; font-size:44px; color:var(--brass); line-height:.5; display:block; margin-bottom:10px;}
+  .voice-card p.quote{font-size:15px; color:var(--ink); font-style:italic; margin:0 0 20px;}
+  .voice-who{display:flex; align-items:center; gap:12px; border-top:1px solid var(--line); padding-top:16px;}
+  .voice-who .mono{font-size:13px; background:var(--paper-deep);}
+  .voice-who .n{font-size:13.5px; font-weight:600;}
+  .voice-who .r{font-size:12px; color:var(--ink-faint);}
+
+  /* ============ CONTACT ============ */
+  .contact-section{background:var(--dusk); color:var(--cream);}
+  .contact-section .eyebrow{color:#D8A76A;}
+  .contact-section .eyebrow::before{background:#D8A76A;}
+  .contact-grid{display:grid; grid-template-columns:1fr 1.15fr; gap:70px;}
+  @media (max-width:960px){ .contact-grid{grid-template-columns:1fr; gap:50px;} }
+  .contact-grid h2{font-size:clamp(30px,4vw,46px); color:var(--cream); line-height:1.08; margin-bottom:36px;}
+  .contact-info-item{display:flex; gap:14px; margin-bottom:26px;}
+  .contact-info-item svg{width:18px; height:18px; color:#D8A76A; flex-shrink:0; margin-top:3px;}
+  .contact-info-item .lbl{font-size:10.5px; text-transform:uppercase; letter-spacing:.1em; color:#8C846E; margin-bottom:4px;}
+  .contact-info-item .val{font-size:15px; font-style:italic; font-family:'Fraunces',serif; color:var(--cream);}
+
+  .form-grid{display:grid; grid-template-columns:1fr 1fr; gap:26px 30px;}
+  .form-field{grid-column:span 1; border-bottom:1px solid #47402F; padding-bottom:10px;}
+  .form-field.full{grid-column:1/-1;}
+  .form-field label{display:block; font-size:10.5px; text-transform:uppercase; letter-spacing:.1em; color:#8C846E; margin-bottom:8px;}
+  .form-field input, .form-field select, .form-field textarea{
+    width:100%; background:transparent; border:0; color:var(--cream); font-size:15px; padding:0;
+  }
+  .form-field input:focus, .form-field select:focus, .form-field textarea:focus{outline:0;}
+  .form-field textarea{resize:none; height:64px; font-family:inherit; line-height:1.4;}
+  .form-field select option{background:var(--dusk-card); color:var(--cream);}
+  .form-field ::placeholder{color:#5C543E;}
+  .form-actions{display:flex; align-items:center; gap:18px; margin-top:32px; flex-wrap:wrap;}
+  .form-note{font-size:12.5px; color:#8C846E; max-width:230px;}
+  #formStatus{font-size:12.5px; color:#D8A76A; margin-top:14px; min-height:16px;}
+
+  /* ============ FOOTER ============ */
+  footer{background:var(--paper-deep); padding:70px 0 30px;}
+  .footer-grid{display:grid; grid-template-columns:1.4fr .8fr .8fr .8fr; gap:40px; padding-bottom:50px;}
+  @media (max-width:820px){ .footer-grid{grid-template-columns:1fr 1fr; row-gap:36px;} }
+  .footer-brand .name{font-family:'Fraunces',serif; font-size:24px;}
+  .footer-brand .name em{color:var(--brass);}
+  .footer-brand p{color:var(--ink-soft); font-size:13.5px; max-width:320px; margin-top:14px;}
+  .footer-col h4{font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); margin-bottom:16px; font-weight:600;}
+  .footer-col a, .footer-col span{display:block; font-size:13.5px; color:var(--ink-soft); margin-bottom:10px;}
+  .footer-col a:hover{color:var(--brass);}
+  .footer-bottom{display:flex; justify-content:space-between; align-items:center; padding-top:26px; border-top:1px solid var(--line); font-size:12px; color:var(--ink-faint); flex-wrap:wrap; gap:10px;}
+
+  /* WhatsApp floating bubble */
+  .wa-float{
+    position:fixed; right:24px; bottom:24px; z-index:70;
+    display:flex; align-items:center; gap:9px;
+    background:var(--olive-deep); color:#fff; padding:13px 18px; border-radius:100px;
+    box-shadow:0 10px 24px -8px rgba(34,28,19,.45); font-size:13px; font-weight:600;
+  }
+  .wa-float:hover{background:var(--olive);}
+  .wa-float svg{width:18px; height:18px;}
+  @media (max-width:560px){ .wa-float span.wa-label{display:none;} .wa-float{padding:14px;} }
+
+  /* Stamp component */
+  .stamp{filter:drop-shadow(0 2px 3px rgba(0,0,0,.15));}
+
+  ::selection{background:var(--brass); color:#fff;}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="nav-inner">
+    <a href="#top" class="brand">
+      <span class="mono">K</span>
+      <span class="brand-text">
+        <div class="name">KNK Realtors India</div>
+        <div class="tag">NCR &middot; Boutique Brokerage</div>
+      </span>
+    </a>
+    <nav class="links">
+      <a href="#portfolio">Portfolio</a>
+      <a href="#partners">Partners</a>
+      <a href="#manifesto">Manifesto</a>
+      <a href="#voices">Voices</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="#contact" class="btn btn-dark">Book a Viewing</a>
+      <button class="burger" id="burgerBtn" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div id="mobileMenu">
+    <a href="#portfolio">Portfolio</a>
+    <a href="#partners">Partners</a>
+    <a href="#manifesto">Manifesto</a>
+    <a href="#voices">Voices</a>
+    <a href="#contact">Contact</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <div class="eyebrow">NCR &middot; Est. Legacy</div>
+        <h1>Real estate,<br><em>curated</em> not sold.</h1>
+        <p class="sub">KNK Realtors India works with three developer partners we've vetted ourselves — Trehan IRIS, Civitech and Saraswati — so every home we show you has already earned our trust.</p>
+        <div class="hero-actions">
+          <a href="#portfolio" class="btn btn-dark">Explore Residences &rarr;</a>
+          <a href="#partners" class="btn btn-outline">Our Developer Partners</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="stack">
+          <img src="https://picsum.photos/seed/knk-hero-main/900/1125" alt="Modern residential facade, placeholder image">
+        </div>
+        <div class="float-card">
+          <div class="k">03</div>
+          <div class="v">Developer partnerships, each personally vetted before we sign.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stat-strip">
+      <div class="container">
+        <div class="stat"><span class="num">3</span><span class="lbl">Developer Partners</span></div>
+        <div class="stat"><span class="num">4</span><span class="lbl">Curated Residences</span></div>
+        <div class="stat"><span class="num">100%</span><span class="lbl">Site-Verified Listings</span></div>
+        <div class="stat"><span class="num">NCR</span><span class="lbl">Noida &middot; Greno West &middot; Ghaziabad</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MANIFESTO ============ -->
+  <section class="section" id="manifesto">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Our Approach</div>
+          <h2>Selective by design,<br><em>not</em> by accident.</h2>
+        </div>
+        <p class="lede">We'd rather represent four residences we'd stake our name on than forty we wouldn't.</p>
+      </div>
+
+      <div class="pillars">
+        <div class="pillar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3l2.5 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5z"/></svg>
+          <h3>We say no, often</h3>
+          <p>Every developer pitch gets the same scrutiny: delivery record, construction quality, and title clarity — before a single unit is listed.</p>
+        </div>
+        <div class="pillar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2v20M2 12h20M5 5l14 14M19 5L5 19"/></svg>
+          <h3>We walk every unit</h3>
+          <p>No listing goes live from a brochure. An advisor physically walks the residence, the amenities and the neighbourhood first.</p>
+        </div>
+        <div class="pillar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"/></svg>
+          <h3>We stay after the sale</h3>
+          <p>Possession, documentation, resale — our advisors remain the point of contact long after the keys change hands.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider container" style="max-width:1240px;">
+
+  <!-- ============ PARTNERS ============ -->
+  <section class="section" id="partners">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Developer Alliances</div>
+          <h2>Three partnerships.<br><em>One</em> standard.</h2>
+        </div>
+        <p class="lede">We work only with developers whose delivery record matches their brochures.</p>
+      </div>
+
+      <div class="partners-grid">
+
+        <div class="partner-card">
+          <div class="partner-top">
+            <span class="mono">T</span>
+            <div>
+              <div class="pname">Trehan IRIS</div>
+              <div class="ptag">Urban precincts &middot; Greater Noida West</div>
+            </div>
+          </div>
+          <div class="partner-since">Partner since [placeholder year]</div>
+          <div class="partner-projects">
+            <div class="proj-row"><span class="pn">Broadway, Greno West</span><span class="pl">Retail &amp; Residences</span></div>
+          </div>
+          <a href="#portfolio" class="partner-link" data-filter-dev="Trehan IRIS">View Projects
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </a>
+        </div>
+
+        <div class="partner-card">
+          <div class="partner-top">
+            <span class="mono">C</span>
+            <div>
+              <div class="pname">Civitech</div>
+              <div class="ptag">Modern lifestyle townships &middot; Noida</div>
+            </div>
+          </div>
+          <div class="partner-since">Partner since [placeholder year]</div>
+          <div class="partner-projects">
+            <div class="proj-row"><span class="pn">Santoni</span><span class="pl">Sector 150</span></div>
+            <div class="proj-row"><span class="pn">Stings</span><span class="pl">Sector 79</span></div>
+          </div>
+          <a href="#portfolio" class="partner-link" data-filter-dev="Civitech">View Projects
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </a>
+        </div>
+
+        <div class="partner-card">
+          <div class="partner-top">
+            <span class="mono">S</span>
+            <div>
+              <div class="pname">Saraswati</div>
+              <div class="ptag">Community-first residences &middot; Ghaziabad</div>
+            </div>
+          </div>
+          <div class="partner-since">Partner since [placeholder year]</div>
+          <div class="partner-projects">
+            <div class="proj-row"><span class="pn">Galleria</span><span class="pl">Ghaziabad</span></div>
+          </div>
+          <a href="#portfolio" class="partner-link" data-filter-dev="Saraswati">View Projects
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PORTFOLIO ============ -->
+  <section class="section" id="portfolio" style="background:var(--paper-deep);">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Current Portfolio</div>
+          <h2>Four listings.<br><em>Zero</em> noise.</h2>
+        </div>
+        <p class="lede">Placeholder listings — swap in live units, pricing and photography before launch.</p>
+      </div>
+
+      <div class="filter-bar">
+        <div class="filter-field">
+          <label for="fSearch">Search</label>
+          <input id="fSearch" type="text" placeholder="Project, location&hellip;">
+        </div>
+        <div class="filter-field">
+          <label for="fDev">Developer</label>
+          <select id="fDev">
+            <option value="">All</option>
+            <option value="Trehan IRIS">Trehan IRIS</option>
+            <option value="Civitech">Civitech</option>
+            <option value="Saraswati">Saraswati</option>
+          </select>
+        </div>
+        <div class="filter-field">
+          <label for="fBhk">BHK</label>
+          <select id="fBhk">
+            <option value="">Any</option>
+            <option value="2">2 BHK</option>
+            <option value="3">3 BHK</option>
+            <option value="4">4 BHK</option>
+          </select>
+        </div>
+        <div class="filter-field">
+          <label for="fStatus">Status</label>
+          <select id="fStatus">
+            <option value="">All</option>
+            <option value="Ready to Move">Ready to Move</option>
+            <option value="New Launch">New Launch</option>
+            <option value="Under Construction">Under Construction</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="portfolio-grid" id="portfolioGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============ VOICES ============ -->
+  <section class="section" id="voices">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Client Voices</div>
+          <h2>Trust, <em>in</em> their words.</h2>
+        </div>
+        <p class="lede">Placeholder testimonials — replace with real client quotes once available.</p>
+      </div>
+      <div class="voices-grid">
+        <div class="voice-card">
+          <span class="quote-mark">&ldquo;</span>
+          <p class="quote">They walked us through Santoni themselves before recommending it — no brochure talk, just a straight answer about what we were buying.</p>
+          <div class="voice-who"><span class="mono">R</span><div><div class="n">R. Malhotra</div><div class="r">Homeowner, Sector 150</div></div></div>
+        </div>
+        <div class="voice-card">
+          <span class="quote-mark">&ldquo;</span>
+          <p class="quote">We compared five brokers. KNK was the only one who told us to wait a month rather than rush a purchase we weren't sure about.</p>
+          <div class="voice-who"><span class="mono">A</span><div><div class="n">A. Sharma</div><div class="r">Homeowner, Ghaziabad</div></div></div>
+        </div>
+        <div class="voice-card">
+          <span class="quote-mark">&ldquo;</span>
+          <p class="quote">Possession paperwork can drag on for months. Our advisor stayed on it and kept us updated every step of the way.</p>
+          <div class="voice-who"><span class="mono">P</span><div><div class="n">P. Verma</div><div class="r">Homeowner, Greno West</div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section class="section contact-section" id="contact">
+    <div class="container">
+      <div class="eyebrow">Begin a Conversation</div>
+      <div class="contact-grid">
+        <div>
+          <h2>Tell us about the<br><em>home</em> you imagine.</h2>
+
+          <div class="contact-info-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.68 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.9.32 1.85.55 2.81.68A2 2 0 0122 16.92z"/></svg>
+            <div><div class="lbl">Direct Line</div><div class="val">+91 &middot; [placeholder number]</div></div>
+          </div>
+          <div class="contact-info-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg>
+            <div><div class="lbl">Correspondence</div><div class="val">hello@knkrealtorsindia.in</div></div>
+          </div>
+          <div class="contact-info-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <div><div class="lbl">Studio</div><div class="val">National Capital Region, India</div></div>
+          </div>
+        </div>
+
+        <form id="leadForm">
+          <div class="form-grid">
+            <div class="form-field"><label for="cName">Your Name</label><input id="cName" type="text" required></div>
+            <div class="form-field"><label for="cPhone">Phone</label><input id="cPhone" type="tel" required></div>
+            <div class="form-field full"><label for="cEmail">Email</label><input id="cEmail" type="email" required></div>
+            <div class="form-field full">
+              <label for="cInterest">Interested In</label>
+              <select id="cInterest">
+                <option value="">Select a developer / project</option>
+                <option>Trehan IRIS &mdash; Broadway, Greno West</option>
+                <option>Civitech &mdash; Santoni</option>
+                <option>Civitech &mdash; Stings</option>
+                <option>Saraswati &mdash; Galleria</option>
+                <option>Not sure yet</option>
+              </select>
+            </div>
+            <div class="form-field full"><label for="cMsg">Message</label><textarea id="cMsg" rows="1"></textarea></div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-cream">Send &amp; Open WhatsApp &nearr;</button>
+            <p class="form-note">We reply within business hours. Prefer email? <a href="#" id="mailFallback" style="text-decoration:underline;">Send via email instead</a>.</p>
+          </div>
+          <div id="formStatus"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="name">KNK <em>Realtors India</em></div>
+        <p>A boutique brokerage curating residences across the National Capital Region — partnered exclusively with Trehan IRIS, Civitech and Saraswati.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigate</h4>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#partners">Partners</a>
+        <a href="#manifesto">Manifesto</a>
+        <a href="#voices">Voices</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Developer Partners</h4>
+        <span>Trehan IRIS</span>
+        <span>Civitech</span>
+        <span>Saraswati</span>
+      </div>
+      <div class="footer-col">
+        <h4>Get in Touch</h4>
+        <span>+91 &middot; [placeholder number]</span>
+        <span>hello@knkrealtorsindia.in</span>
+        <span>National Capital Region, India</span>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 KNK Realtors India. All rights reserved.</span>
+      <span>knkrealtorsindia.in</span>
+    </div>
+  </div>
+</footer>
+
+<a class="wa-float" id="waFloat" href="#" target="_blank" rel="noopener">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.87 9.87 0 004.74 1.21h.005c5.46 0 9.9-4.45 9.9-9.92 0-2.65-1.03-5.14-2.9-7.01A9.86 9.86 0 0012.04 2zm5.83 14.02c-.24.68-1.4 1.33-1.93 1.4-.5.07-1.1.1-1.78-.11a15.6 15.6 0 01-1.83-.68c-3.22-1.4-5.28-4.63-5.44-4.84-.16-.22-1.3-1.73-1.3-3.3 0-1.57.83-2.34 1.12-2.66.3-.32.64-.4.86-.4l.61.01c.2 0 .46-.08.72.55.26.63.9 2.17.98 2.33.08.16.13.35.02.57-.1.22-.16.35-.31.54-.16.19-.33.42-.47.57-.16.16-.33.34-.14.66.19.32.85 1.4 1.83 2.27 1.26 1.12 2.32 1.47 2.65 1.63.32.16.5.14.7-.08.19-.22.83-.97 1.05-1.3.22-.32.44-.27.73-.16.3.1 1.9.9 2.22 1.06.32.16.53.24.6.38.08.14.08.79-.16 1.47z"/></svg>
+  <span class="wa-label">Chat on WhatsApp</span>
+</a>
+
+<script>
+  // ---------- Config: EDIT THESE PLACEHOLDERS ----------
+  const WHATSAPP_NUMBER = "919999999999"; // country code + number, no + or spaces
+  const CONTACT_EMAIL = "hello@knkrealtorsindia.in";
+
+  document.getElementById('waFloat').href =
+    `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi KNK Realtors, I'd like to know more about your listings.")}`;
+
+  // ---------- Mobile menu ----------
+  const burger = document.getElementById('burgerBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  burger.addEventListener('click', () => {
+    const open = mobileMenu.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open);
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    mobileMenu.classList.remove('open');
+    burger.setAttribute('aria-expanded', 'false');
+  }));
+
+  // ---------- Stamp SVG generator (signature element) ----------
+  let stampCounter = 0;
+  function stampSVG(statusText){
+    stampCounter++;
+    const id = 'stampPath' + stampCounter;
+    const color = statusText === 'Ready to Move' ? 'var(--olive-deep)' : 'var(--brass-deep)';
+    return `
+    <svg class="stamp" width="78" height="78" viewBox="0 0 78 78" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <defs><path id="${id}" d="M 9,39 A 30,30 0 1 1 69,39" /></defs>
+      <circle cx="39" cy="39" r="34" fill="none" stroke="${color}" stroke-width="1.4" stroke-dasharray="3 3"/>
+      <circle cx="39" cy="39" r="27" fill="none" stroke="${color}" stroke-width="1"/>
+      <text font-family="Inter, sans-serif" font-size="7.4" font-weight="700" letter-spacing="1.5" fill="${color}">
+        <textPath href="#${id}" xlink:href="#${id}" startOffset="50%" text-anchor="middle">${statusText.toUpperCase()}</textPath>
+      </text>
+      <text x="39" y="43" font-family="Fraunces, serif" font-style="italic" font-size="10" fill="${color}" text-anchor="middle">KNK</text>
+      <text x="39" y="56" font-family="Inter, sans-serif" font-size="5.5" letter-spacing="2" fill="${color}" text-anchor="middle">VERIFIED</text>
+    </svg>`;
+  }
+
+  // ---------- Portfolio data (placeholder — edit freely) ----------
+  const listings = [
+    {
+      title: "Trehan IRIS Broadway",
+      developer: "Trehan IRIS",
+      location: "Greater Noida West",
+      status: "Ready to Move",
+      bhk: ["2","3"],
+      bhkLabel: "2–3 BHK + Retail",
+      price: "₹85 L onwards",
+      size: "1150–1850 sq.ft.",
+      img: "https://picsum.photos/seed/knk-broadway/800/600"
+    },
+    {
+      title: "Civitech Santoni",
+      developer: "Civitech",
+      location: "Sector 150, Noida",
+      status: "Ready to Move",
+      bhk: ["3"],
+      bhkLabel: "3 BHK",
+      price: "₹2.1 Cr onwards",
+      size: "1650–2100 sq.ft.",
+      img: "https://picsum.photos/seed/knk-santoni/800/600"
+    },
+    {
+      title: "Civitech Stings",
+      developer: "Civitech",
+      location: "Sector 79, Noida",
+      status: "New Launch",
+      bhk: ["2","3"],
+      bhkLabel: "2–3 BHK",
+      price: "₹1.4 Cr onwards",
+      size: "980–1520 sq.ft.",
+      img: "https://picsum.photos/seed/knk-stings/800/600"
+    },
+    {
+      title: "Saraswati Galleria",
+      developer: "Saraswati",
+      location: "Ghaziabad",
+      status: "Under Construction",
+      bhk: ["3","4"],
+      bhkLabel: "3–4 BHK",
+      price: "₹1.25 Cr onwards",
+      size: "1400–2250 sq.ft.",
+      img: "https://picsum.photos/seed/knk-galleria/800/600"
+    }
+  ];
+
+  const grid = document.getElementById('portfolioGrid');
+
+  function renderListings(items){
+    grid.innerHTML = '';
+    if(items.length === 0){
+      grid.innerHTML = '<div class="no-results">No residences match those filters — try widening your search.</div>';
+      return;
+    }
+    items.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'prop-card';
+      card.innerHTML = `
+        <div class="prop-media">
+          <img src="${item.img}" alt="${item.title}, placeholder photo" loading="lazy">
+          <div class="stamp-wrap">${stampSVG(item.status)}</div>
+          <div class="price-tag">${item.price}</div>
+        </div>
+        <div class="prop-body">
+          <div class="prop-title">${item.title}</div>
+          <div class="prop-loc">${item.location}</div>
+          <div class="prop-meta">
+            <span>${item.bhkLabel}</span>
+            <span>${item.size}</span>
+          </div>
+          <div class="prop-foot">
+            <div class="dev-chip"><span class="dot"></span>${item.developer}</div>
+            <a href="#contact" class="enquire-link" data-preset="${item.title}">Enquire &rarr;</a>
+          </div>
+        </div>`;
+      grid.appendChild(card);
+    });
+
+    // wire up "enquire" links to preselect the project in the contact form
+    grid.querySelectorAll('[data-preset]').forEach(a => {
+      a.addEventListener('click', () => {
+        const sel = document.getElementById('cInterest');
+        const match = [...sel.options].find(o => o.textContent.includes(a.dataset.preset));
+        if(match) sel.value = match.value;
+      });
+    });
+  }
+
+  function applyFilters(){
+    const search = document.getElementById('fSearch').value.trim().toLowerCase();
+    const dev = document.getElementById('fDev').value;
+    const bhk = document.getElementById('fBhk').value;
+    const status = document.getElementById('fStatus').value;
+
+    const filtered = listings.filter(item => {
+      const matchesSearch = !search || (item.title + item.location).toLowerCase().includes(search);
+      const matchesDev = !dev || item.developer === dev;
+      const matchesBhk = !bhk || item.bhk.includes(bhk);
+      const matchesStatus = !status || item.status === status;
+      return matchesSearch && matchesDev && matchesBhk && matchesStatus;
+    });
+    renderListings(filtered);
+  }
+
+  ['fSearch','fDev','fBhk','fStatus'].forEach(id => {
+    document.getElementById(id).addEventListener('input', applyFilters);
+  });
+
+  renderListings(listings);
+
+  // partner cards -> filter portfolio by developer
+  document.querySelectorAll('[data-filter-dev]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      document.getElementById('fDev').value = link.dataset.filterDev;
+      applyFilters();
+    });
+  });
+
+  // ---------- Lead form -> WhatsApp + mailto fallback ----------
+  const leadForm = document.getElementById('leadForm');
+  const formStatus = document.getElementById('formStatus');
+
+  function buildMessage(){
+    const name = document.getElementById('cName').value;
+    const phone = document.getElementById('cPhone').value;
+    const email = document.getElementById('cEmail').value;
+    const interest = document.getElementById('cInterest').value || 'Not specified';
+    const msg = document.getElementById('cMsg').value || '(no message)';
+    return `New enquiry from knkrealtorsindia.in%0A%0AName: ${encodeURIComponent(name)}%0APhone: ${encodeURIComponent(phone)}%0AEmail: ${encodeURIComponent(email)}%0AInterested in: ${encodeURIComponent(interest)}%0AMessage: ${encodeURIComponent(msg)}`;
+  }
+
+  leadForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if(!leadForm.checkValidity()){
+      leadForm.reportValidity();
+      return;
+    }
+    const text = buildMessage();
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${text}`, '_blank');
+    formStatus.textContent = 'Opening WhatsApp with your details filled in…';
+    leadForm.reset();
+    setTimeout(() => { formStatus.textContent = ''; }, 6000);
+  });
+
+  document.getElementById('mailFallback').addEventListener('click', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('cName').value || '';
+    const interest = document.getElementById('cInterest').value || '';
+    const msg = document.getElementById('cMsg').value || '';
+    const subject = encodeURIComponent('Enquiry from knkrealtorsindia.in');
+    const body = encodeURIComponent(`Name: ${name}\nInterested in: ${interest}\nMessage: ${msg}`);
+    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+  });
+</script>
+
+</body>
+</html>
