@@ -239,6 +239,34 @@
 
   .no-results{grid-column:1/-1; text-align:center; padding:60px 20px; color:var(--ink-faint); font-size:14.5px;}
 
+  .prop-card{cursor:pointer;}
+
+  /* Property detail modal */
+  .modal-overlay{
+    position:fixed; inset:0; background:rgba(28,23,16,.72);
+    display:none; align-items:center; justify-content:center; z-index:100; padding:24px;
+  }
+  .modal-overlay.open{display:flex;}
+  .modal-box{
+    background:var(--card); border-radius:var(--radius-m); max-width:640px; width:100%;
+    max-height:88vh; overflow-y:auto; position:relative; box-shadow:0 30px 60px -20px rgba(0,0,0,.5);
+  }
+  .modal-close{
+    position:absolute; top:14px; right:14px; z-index:2; width:36px; height:36px; border-radius:50%;
+    background:rgba(34,28,19,.55); color:#fff; border:0; display:flex; align-items:center; justify-content:center;
+    font-size:18px; line-height:1;
+  }
+  .modal-close:hover{background:rgba(34,28,19,.8);}
+  .modal-media{position:relative; aspect-ratio:4/3; overflow:hidden; border-radius:var(--radius-m) var(--radius-m) 0 0;}
+  .modal-media img{width:100%; height:100%; object-fit:cover;}
+  .modal-body{padding:30px 32px 34px;}
+  .modal-body .prop-title{font-size:26px; margin-bottom:6px;}
+  .modal-body .prop-loc{font-size:13.5px; margin-bottom:18px;}
+  .modal-body .prop-meta{border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:14px 0; margin-bottom:14px; font-size:13.5px;}
+  .modal-body .prop-note{margin-bottom:18px; font-size:13px;}
+  .modal-price{font-family:'Fraunces',serif; font-style:italic; font-size:24px; color:var(--brass); margin-bottom:22px;}
+  .modal-actions{display:flex; gap:12px; flex-wrap:wrap;}
+
   /* ============ VOICES ============ */
   .voices-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
   @media (max-width:900px){ .voices-grid{grid-template-columns:1fr;} }
@@ -528,6 +556,24 @@
     </div>
   </section>
 
+  <div class="modal-overlay" id="propModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-box">
+      <button class="modal-close" id="modalCloseBtn" aria-label="Close">&times;</button>
+      <div class="modal-media"><img id="modalImg" src="" alt=""></div>
+      <div class="modal-body">
+        <div class="prop-title" id="modalTitle"></div>
+        <div class="prop-loc" id="modalLoc"></div>
+        <div class="prop-meta" id="modalMeta"></div>
+        <div class="prop-note" id="modalNote"></div>
+        <div class="modal-price" id="modalPrice"></div>
+        <div class="modal-actions">
+          <a href="#contact" class="btn btn-dark" id="modalEnquire">Enquire About This Listing &rarr;</a>
+          <button class="btn btn-outline" id="modalCloseBtn2" type="button">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ============ VOICES ============ -->
   <section class="section" id="voices">
     <div class="container">
@@ -770,6 +816,10 @@
             <a href="#contact" class="enquire-link" data-preset="${item.title}">Enquire &rarr;</a>
           </div>
         </div>`;
+      card.addEventListener('click', (e) => {
+        if(e.target.closest('.enquire-link')) return; // let the enquire link behave normally, don't also open modal
+        openModal(item);
+      });
       grid.appendChild(card);
     });
 
@@ -777,11 +827,57 @@
     grid.querySelectorAll('[data-preset]').forEach(a => {
       a.addEventListener('click', () => {
         const sel = document.getElementById('cInterest');
-        const match = [...sel.options].find(o => o.textContent.includes(a.dataset.preset));
+        const match = findInterestOption(sel, a.dataset.preset);
         if(match) sel.value = match.value;
       });
     });
   }
+
+  // ---------- Property detail modal ----------
+  function normalize(s){ return s.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim(); }
+  function findInterestOption(sel, presetTitle){
+    const target = normalize(presetTitle);
+    return [...sel.options].find(o => normalize(o.textContent).includes(target));
+  }
+
+  const modal = document.getElementById('propModal');
+  let lastFocusedEl = null;
+
+  function openModal(item){
+    document.getElementById('modalImg').src = item.img;
+    document.getElementById('modalImg').alt = item.title;
+    document.getElementById('modalTitle').textContent = item.title;
+    document.getElementById('modalLoc').innerHTML = item.location + (item.rera ? ' &middot; <span class="prop-rera">RERA: '+item.rera+'</span>' : '');
+    document.getElementById('modalMeta').innerHTML = `<span>${item.bhkLabel}</span> &nbsp;&nbsp; <span>${item.size}</span>`;
+    const noteEl = document.getElementById('modalNote');
+    if(item.note){ noteEl.textContent = item.note; noteEl.style.display = 'block'; } else { noteEl.style.display = 'none'; }
+    document.getElementById('modalPrice').textContent = item.price;
+    document.getElementById('modalEnquire').dataset.preset = item.title;
+
+    lastFocusedEl = document.activeElement;
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    document.getElementById('modalCloseBtn').focus();
+  }
+
+  function closeModal(){
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+    if(lastFocusedEl) lastFocusedEl.focus();
+  }
+
+  document.getElementById('modalCloseBtn').addEventListener('click', closeModal);
+  document.getElementById('modalCloseBtn2').addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
+  document.addEventListener('keydown', (e) => { if(e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+
+  document.getElementById('modalEnquire').addEventListener('click', () => {
+    const preset = document.getElementById('modalEnquire').dataset.preset;
+    const sel = document.getElementById('cInterest');
+    const match = findInterestOption(sel, preset);
+    if(match) sel.value = match.value;
+    closeModal();
+  });
 
   function applyFilters(){
     const search = document.getElementById('fSearch').value.trim().toLowerCase();
