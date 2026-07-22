@@ -614,6 +614,10 @@
         <h4>About This Listing</h4>
         <p class="modal-desc" id="modalDesc"></p>
       </div>
+      <div class="modal-section" id="modalHighlightsWrap">
+        <h4>Investment Highlights</h4>
+        <ul class="amenity-grid" id="modalHighlights"></ul>
+      </div>
       <div class="modal-section" id="modalAmenitiesWrap">
         <h4>Amenities</h4>
         <ul class="amenity-grid" id="modalAmenities"></ul>
@@ -621,6 +625,10 @@
       <div class="modal-section" id="modalLocationWrap">
         <h4>Location Highlights</h4>
         <ul class="amenity-grid" id="modalLocation"></ul>
+      </div>
+      <div class="modal-section" id="modalStructureWrap">
+        <h4>Building Structure</h4>
+        <div id="modalStructure"></div>
       </div>
       <div class="modal-section" id="modalPaymentWrap">
         <h4>Payment Plan</h4>
@@ -837,8 +845,17 @@
       status: "100% Pre-leased",
       bhk: [],
       bhkLabel: "Office + Retail",
-      price: "₹25 L onwards",
+      price: "₹20 L onwards",
       size: "110–1850 sq.ft.",
+      note: "Possession expected November 2026 &middot; OC applied",
+      description: "Trehan IRIS Broadway is a 3.5-acre, fully self-owned mixed-use development in Greater Noida West, delivered in two phases \u2014 a retail mall (Phase 1) and office towers with a hotel (Phase 2). Only the retail and office spaces are being offered for sale; the hotel, tied to JW Marriott's Courtyard, is not for sale.",
+      highlights: ["3.5 acre, fully owned land", "100% pre-leased to brands", "Lease guarantee", "Free maintenance for life", "1,500-car basement parking", "Full A/C ventilation throughout"],
+      amenities: ["Cafeteria & Restaurants", "CCTV Camera", "Conference Room", "Fire Fighting Equipment", "Fire Alarm", "Lift", "Maintenance Staff", "Power Backup", "Reserved Parking", "Security", "Visitor Parking", "Water Storage"],
+      structure: [
+        {group: "Mall &mdash; Phase 1", steps: [["Basement 1 & 2","Parking (1,500 cars)"],["Lower Ground \u2013 2nd Floor","Retail"],["3rd Floor","Food Court & Restaurants"],["4th & 5th Floor","Entertainment & Multiplex"]]},
+        {group: "Office &mdash; Phase 2", steps: [["6th & 7th Floor","Lounge"],["8th \u2013 19th Floor","29 offices/floor, 6 lifts/floor, private balcony & wet point per office"]]},
+        {group: "Hotel &mdash; Phase 2 (not for sale)", steps: [["Operator","Tied to JW Marriott's Courtyard"]]}
+      ],
       img: "https://picsum.photos/seed/knk-broadway/800/600"
     },
     {
@@ -956,7 +973,7 @@
     document.getElementById('modalLoc').innerHTML = item.location + (item.rera ? ' &middot; <span class="prop-rera">RERA: '+item.rera+'</span>' : '');
     document.getElementById('modalMeta').innerHTML = `<span>${item.bhkLabel}</span> &nbsp;&nbsp; <span>${item.size}</span>`;
     const noteEl = document.getElementById('modalNote');
-    if(item.note){ noteEl.textContent = item.note; noteEl.style.display = 'block'; } else { noteEl.style.display = 'none'; }
+    if(item.note){ noteEl.innerHTML = item.note; noteEl.style.display = 'block'; } else { noteEl.style.display = 'none'; }
     document.getElementById('modalPrice').textContent = item.price;
     document.getElementById('modalEnquire').dataset.preset = item.title;
 
@@ -987,6 +1004,13 @@
       document.getElementById('modalDesc').textContent = item.description;
     } else { descWrap.style.display = 'none'; }
 
+    // investment highlights
+    const hlWrap = document.getElementById('modalHighlightsWrap');
+    if(item.highlights && item.highlights.length){
+      hlWrap.style.display = 'block';
+      document.getElementById('modalHighlights').innerHTML = item.highlights.map(h => `<li>${h}</li>`).join('');
+    } else { hlWrap.style.display = 'none'; }
+
     // amenities
     const amenWrap = document.getElementById('modalAmenitiesWrap');
     if(item.amenities && item.amenities.length){
@@ -1000,6 +1024,17 @@
       locWrap.style.display = 'block';
       document.getElementById('modalLocation').innerHTML = item.locationHighlights.map(l => `<li>${l}</li>`).join('');
     } else { locWrap.style.display = 'none'; }
+
+    // building structure
+    const structWrap = document.getElementById('modalStructureWrap');
+    if(item.structure && item.structure.length){
+      structWrap.style.display = 'block';
+      document.getElementById('modalStructure').innerHTML = item.structure.map(group => `
+        <div class="pp-group">
+          <h5>${group.group}</h5>
+          ${group.steps.map(s => `<div class="pp-row"><span>${s[0]}</span><span>${s[1]}</span></div>`).join('')}
+        </div>`).join('');
+    } else { structWrap.style.display = 'none'; }
 
     // payment plan
     const ppWrap = document.getElementById('modalPaymentWrap');
