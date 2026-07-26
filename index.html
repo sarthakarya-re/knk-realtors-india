@@ -632,7 +632,7 @@
       </div>
       <div class="modal-section" id="modalVideoWrap">
         <h4>Video Walkthrough</h4>
-        <div id="modalVideoEmbed" style="max-width:340px; margin:0 auto;"></div>
+        <div id="modalVideoEmbed" style="margin:0 auto;"></div>
       </div>
       <div class="modal-section" id="modalHighlightsWrap">
         <h4>Investment Highlights</h4>
@@ -884,6 +884,8 @@
     },
     {
       title: "Civitech Santoni",
+      vimeoId: "1213008877",
+      vimeoPadding: "56.6",
       developer: "Civitech",
       location: "Sector 16B, Greater Noida",
       status: "Under Construction",
@@ -949,6 +951,7 @@
     {
       title: "Spectrum @ Metro",
       vimeoId: "1213006257",
+      vimeoPadding: "179.31",
       developer: "Blue Square Infra",
       location: "Sector 75, Noida",
       status: "Ready to Move",
@@ -1076,7 +1079,9 @@
     const videoEmbed = document.getElementById('modalVideoEmbed');
     if(item.vimeoId){
       videoWrap.style.display = 'block';
-      videoEmbed.innerHTML = `<div style="padding:179.31% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/${item.vimeoId}?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="${item.title}"></iframe></div>`;
+      const isPortrait = parseFloat(item.vimeoPadding || '56.6') > 100;
+      videoEmbed.style.maxWidth = isPortrait ? '340px' : '640px';
+      videoEmbed.innerHTML = `<div style="padding:${item.vimeoPadding || '56.6'}% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/${item.vimeoId}?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="${item.title}"></iframe></div>`;
     } else {
       videoWrap.style.display = 'none';
       videoEmbed.innerHTML = '';
