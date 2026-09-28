@@ -322,6 +322,11 @@
   .modal-gallery img{width:72px; height:54px; object-fit:cover; border-radius:6px; cursor:pointer; opacity:.7; border:2px solid transparent; transition:opacity .15s, border-color .15s;}
   .modal-gallery img:hover{opacity:1;}
   .modal-gallery img.active{opacity:1; border-color:var(--brass);}
+  .modal-gallery .vid-thumb{position:relative; flex:0 0 auto; width:72px; height:54px; border-radius:6px; cursor:pointer; opacity:.7; border:2px solid transparent; background-size:cover; background-position:center; overflow:hidden; display:flex; align-items:center; justify-content:center; transition:opacity .15s, border-color .15s;}
+  .modal-gallery .vid-thumb::before{content:""; position:absolute; inset:0; background:rgba(34,28,19,.45);}
+  .modal-gallery .vid-thumb svg{position:relative; width:22px; height:22px; color:#fff;}
+  .modal-gallery .vid-thumb:hover, .modal-gallery .vid-thumb:focus-visible{opacity:1; outline:0;}
+  .modal-gallery .vid-thumb.active{opacity:1; border-color:var(--brass);}
 
   .modal-section{padding:0 32px 24px;}
   .modal-section h4{font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); font-weight:600; margin:0 0 12px;}
@@ -954,6 +959,7 @@
       category: "Commercial",
       vimeoId: "1213009958",
       vimeoPadding: "56.86",
+      videoInGallery: true,
       developer: "Trehan IRIS",
       location: "Greater Noida West",
       status: "100% Pre-leased",
@@ -980,6 +986,7 @@
       category: "Commercial",
       vimeoId: "1213008877",
       vimeoPadding: "56.6",
+      videoInGallery: true,
       developer: "Civitech",
       location: "Sector 16B, Greater Noida",
       status: "Under Construction",
@@ -1049,6 +1056,7 @@
       category: "Studio",
       vimeoId: "1213006257",
       vimeoPadding: "56.25",
+      videoInGallery: true,
       developer: "Blue Square Infra",
       location: "Sector 75, Noida",
       status: "Ready to Move",
@@ -1076,6 +1084,7 @@
       category: "Residential",
       vimeoId: "1230862946",
       vimeoPadding: "177.78",
+      videoInGallery: true,
       developer: "Dharni Vista",
       location: "G T Road, NH-91, Chhapraula, G B Nagar",
       status: "Under Construction",
@@ -1154,7 +1163,23 @@
   const modal = document.getElementById('propModal');
   let lastFocusedEl = null;
 
+  // in-gallery video (used by listings flagged videoInGallery)
+  function clearMediaVideo(){
+    const v = document.getElementById('modalMediaVideo');
+    if(v) v.remove();
+  }
+  function showMediaVideo(id){
+    clearMediaVideo();
+    const box = document.querySelector('#propModal .modal-media');
+    const d = document.createElement('div');
+    d.id = 'modalMediaVideo';
+    d.style.cssText = 'position:absolute;inset:0;background:#000;';
+    d.innerHTML = `<iframe src="https://player.vimeo.com/video/${id}?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;autoplay=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Video walkthrough"></iframe>`;
+    box.appendChild(d);
+  }
+
   function openModal(item){
+    clearMediaVideo();
     document.getElementById('modalImg').src = item.img;
     document.getElementById('modalImg').alt = item.title;
     document.getElementById('modalTitle').textContent = item.title;
@@ -1171,18 +1196,30 @@
     // gallery strip (main photo + any extra gallery images)
     const galleryWrap = document.getElementById('modalGallery');
     const allPhotos = [item.img, ...(item.gallery || [])];
-    if(allPhotos.length > 1){
+    const hasGalleryVideo = !!(item.vimeoId && item.videoInGallery);
+    if(allPhotos.length > 1 || hasGalleryVideo){
       galleryWrap.style.display = 'flex';
       galleryWrap.innerHTML = allPhotos.map((src, i) =>
         `<img src="${src}" alt="${item.title} photo ${i+1}" class="${i===0?'active':''}">`
-      ).join('');
+      ).join('') + (hasGalleryVideo ? `<div class="vid-thumb" role="button" tabindex="0" aria-label="Play video walkthrough" style="background-image:url('${item.img}')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>` : '');
       galleryWrap.querySelectorAll('img').forEach(thumb => {
         thumb.addEventListener('click', () => {
+          clearMediaVideo();
           document.getElementById('modalImg').src = thumb.src;
-          galleryWrap.querySelectorAll('img').forEach(t => t.classList.remove('active'));
+          galleryWrap.querySelectorAll('img, .vid-thumb').forEach(t => t.classList.remove('active'));
           thumb.classList.add('active');
         });
       });
+      const vt = galleryWrap.querySelector('.vid-thumb');
+      if(vt){
+        const playVideo = () => {
+          showMediaVideo(item.vimeoId);
+          galleryWrap.querySelectorAll('img, .vid-thumb').forEach(t => t.classList.remove('active'));
+          vt.classList.add('active');
+        };
+        vt.addEventListener('click', playVideo);
+        vt.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); playVideo(); } });
+      }
     } else {
       galleryWrap.style.display = 'none';
       galleryWrap.innerHTML = '';
@@ -1198,7 +1235,7 @@
     // video walkthrough
     const videoWrap = document.getElementById('modalVideoWrap');
     const videoEmbed = document.getElementById('modalVideoEmbed');
-    if(item.vimeoId){
+    if(item.vimeoId && !item.videoInGallery){
       videoWrap.style.display = 'block';
       const isPortrait = parseFloat(item.vimeoPadding || '56.6') > 100;
       videoEmbed.style.maxWidth = isPortrait ? '340px' : '640px';
@@ -1262,6 +1299,7 @@
     document.body.style.overflow = '';
     const videoEmbed = document.getElementById('modalVideoEmbed');
     if(videoEmbed){ videoEmbed.innerHTML = ''; }
+    clearMediaVideo();
     if(lastFocusedEl) lastFocusedEl.focus();
   }
 
